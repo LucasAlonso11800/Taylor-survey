@@ -45,7 +45,7 @@ function Question({ id, setId }) {
         e.preventDefault();
 
         if (id === 1) {
-            axios.post('http://localhost:5000/userData', { age, country })
+            axios.post('https://taylor-survey.herokuapp.com/userData', { age, country })
                 .then(res => {
                     console.log(res.data)
                     setError(false)
@@ -54,7 +54,7 @@ function Question({ id, setId }) {
                 .catch(err => { if (err) setError(true) })
         }
         else if (id > 1 && id < 10) {
-            axios.post('http://localhost:5000/answer', {
+            axios.post('https://taylor-survey.herokuapp.com/nswer', {
                 question: id, favourite, worst, underrated, friday, sunday
             })
                 .then(res => {

@@ -35,7 +35,7 @@ function Results() {
     const [albumData, setAlbumData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/answer')
+        axios.get('https://taylor-survey.herokuapp.com/answer')
             .then(res => {
                 res.data.forEach(answer => {
                     switch(answer.question){
@@ -65,7 +65,7 @@ function Results() {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/userData')
+        axios.get('https://taylor-survey.herokuapp.com/userData')
             .then(res => {
                 setUserData(res.data)
             })
