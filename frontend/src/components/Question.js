@@ -54,7 +54,7 @@ function Question({ id, setId }) {
                 .catch(err => { if (err) setError(true) })
         }
         else if (id > 1 && id < 10) {
-            axios.post('https://taylor-survey.herokuapp.com/nswer', {
+            axios.post('https://taylor-survey.herokuapp.com/answer', {
                 question: id, favourite, worst, underrated, friday, sunday
             })
                 .then(res => {
@@ -70,7 +70,7 @@ function Question({ id, setId }) {
                 .catch(err => { if (err) setError(true) })
         }
         else {
-            axios.post('https://taylor-backend.herokuapp.com/answer', {
+            axios.post('https://taylor-survey.herokuapp.com/answer', {
                 question: id, favourite, worst, underrated, friday, sunday
             })
                 .then(res => {
