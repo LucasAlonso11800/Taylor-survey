@@ -15,9 +15,12 @@ function Charts({ chartData, songList, title, album }) {
             margin: '1em 0'
         },
         gridContainer: {
-            justifyContent: 'space-between',
             paddingBottom: '2em',
-            borderBottom: album ? '' : '2px solid #9a0036'
+            borderBottom: album ? '' : '2px solid #9a0036',
+            justifyContent: 'space-between',
+            [theme.breakpoints.down('sm')]: {
+                justifyContent: 'space-around',
+            }
         }
     }));
 

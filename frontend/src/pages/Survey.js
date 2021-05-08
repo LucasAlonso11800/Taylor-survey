@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         height: '82vh',
+        [theme.breakpoints.down('sm')]: {
+            height: '95vh'
+        },
         padding: '1em'
     },
     paper: {
