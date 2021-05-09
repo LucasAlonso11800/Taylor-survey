@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function UserChart({ chartData }) {
-    const ageLabels = ['> 18', '18-25', '25-35', '35-50', '< 50'];
+    console.log(chartData)
+    const ageLabels = ['< 18', '18-25', '25-35', '35-50', '> 50'];
     const ageVotes = new Array(ageLabels.length).fill(0);
 
     const countryVotes = new Array(countries.length).fill(0);
