@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
     },
     container: {
         backgroundColor: 'rgba(255,255,255,0.4)',
-        padding: '2em 0',
+        padding: '2em 1em',
     }
 }));
 
@@ -34,32 +34,53 @@ function Results() {
     const [evermoreData, setEvermoreData] = useState([]);
     const [albumData, setAlbumData] = useState([]);
 
+
     useEffect(() => {
         axios.get('https://taylor-survey.herokuapp.com/answer')
             .then(res => {
+                const newFearlessData = [];
+                const newSpeakNowData = [];
+                const newRedData = [];
+                const newNineteen89Data = [];
+                const newReputationData = [];
+                const newLoverData = [];
+                const newFolkloreData = [];
+                const newEvermoreData = [];
+                const newAlbumData = [];
+
                 res.data.forEach(answer => {
-                    switch(answer.question){
-                        case '2': setFearlessData(album => [...album, answer])
+                    switch (answer.question) {
+                        case '2': newFearlessData.push(answer)
                             break
-                        case '3': setSpeakNowData(album => [...album, answer])
+                        case '3': newSpeakNowData.push(answer)
                             break
-                        case '4': setRedData(album => [...album, answer]);
+                        case '4': newRedData.push(answer)
                             break
-                        case '5': setNineteen89Data(album => [...album, answer])
+                        case '5': newNineteen89Data.push(answer)
                             break
-                        case '6': setReputationData(album => [...album, answer])
+                        case '6': newReputationData.push(answer)
                             break
-                        case '7': setLoverData(album => [...album, answer])
+                        case '7': newLoverData.push(answer)
                             break
-                        case '8': setFolkloreData(album => [...album, answer])
+                        case '8': newFolkloreData.push(answer)
                             break
-                        case '9': setEvermoreData(album => [...album, answer])
+                        case '9': newEvermoreData.push(answer)
                             break
-                        case '10': setAlbumData(album => [...album, answer])
+                        case '10': newAlbumData.push(answer)
                             break
                         default: return
                     }
                 });
+
+                setFearlessData(newFearlessData)
+                setSpeakNowData(newSpeakNowData)
+                setRedData(newRedData)
+                setNineteen89Data(newNineteen89Data)
+                setReputationData(newReputationData)
+                setLoverData(newLoverData)
+                setFolkloreData(newFolkloreData)
+                setEvermoreData(newEvermoreData)
+                setAlbumData(newAlbumData)
             })
             .catch(err => console.log(err))
     }, []);
@@ -77,8 +98,8 @@ function Results() {
     return (
         <div className={classes.root}>
             <Container className={classes.container}>
-                <UserChart chartData={userData}/>
-                <Charts chartData={fearlessData} songList={fearless} title={'Fearless'}/>
+                <UserChart chartData={userData} />
+                <Charts chartData={fearlessData} songList={fearless} title={'Fearless'} />
                 <Charts chartData={speakNowData} songList={speakNow} title={'Speak Now'}/>
                 <Charts chartData={redData} songList={red} title={'Red'}/>
                 <Charts chartData={nineteen89Data} songList={nineteenEightyNine} title={'1989'}/>

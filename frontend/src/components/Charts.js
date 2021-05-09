@@ -3,7 +3,6 @@ import { Grid, Typography } from '@material-ui/core';
 import { Doughnut } from 'react-chartjs-2';
 import { makeStyles } from '@material-ui/core/styles';
 
-
 function Charts({ chartData, songList, title, album }) {
     const useStyles = makeStyles((theme) => ({
         title: {
@@ -81,6 +80,7 @@ function Charts({ chartData, songList, title, album }) {
     function generateOptions(str){
         return (
             {
+                animation: false,
                 plugins: {
                     title: {
                         display: true,

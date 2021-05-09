@@ -33,25 +33,32 @@ function UserChart({ chartData }) {
     const filteredCountryVote = [];
 
     countryVotes.forEach((country, index) => {
-        if(country > 0) {
+        if (country > 0) {
             indexOfFilteredCountries.push(index)
             filteredCountryVote.push(country)
         }
     });
 
     const filteredCountryList = [];
-    for(let i = 0; i < indexOfFilteredCountries.length; i++) {
+    for (let i = 0; i < indexOfFilteredCountries.length; i++) {
         countries.forEach((country, index) => {
-            if(index === indexOfFilteredCountries[i]){
+            if (index === indexOfFilteredCountries[i]) {
                 filteredCountryList.push(country);
             }
         })
     };
 
-    let ageChartData = {};
-    let countryChartData = {};    
+    const max = Math.max(...filteredCountryVote);
+    const maxIndex = filteredCountryVote.indexOf(max);
 
-    (function createChart(){
+    const USA = filteredCountryList.splice(maxIndex, 1);
+    const usaVote = filteredCountryVote.splice(maxIndex, 1);
+
+    let ageChartData = {};
+    let countryChartData = {};
+    let usaChartData = {};
+
+    (function createChart() {
         ageChartData = {
             labels: ageLabels,
             datasets: [
@@ -68,6 +75,17 @@ function UserChart({ chartData }) {
                 {
                     label: 'People from this country',
                     data: filteredCountryVote,
+                    backgroundColor: '#69b2db',
+                    indexAxis: 'y'
+                }
+            ]
+        };
+        usaChartData = {
+            labels: [USA],
+            datasets: [
+                {
+                    label: 'People from the USA',
+                    data: usaVote,
                     backgroundColor: '#69b2db'
                 }
             ]
@@ -82,21 +100,34 @@ function UserChart({ chartData }) {
                 Ages & countrys
             </Typography>
             <Grid container>
-                <Grid item xs={12} sm={6}>
-                    <Bar
-                        data={ageChartData}
-                        options={{
-                            maintainAspectRatio: false
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={6}>
                     <Bar
                         data={countryChartData}
                         options={{
-                            maintainAspectRatio: false
+                            maintainAspectRatio: false,
+                            animation: false
                         }}
                     />
+                </Grid>
+                <Grid item xs={6} container>
+                    <Grid item xs={12}>
+                        <Bar
+                            data={usaChartData}
+                            options={{
+                                maintainAspectRatio: false,
+                                animation: false
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Bar
+                            data={ageChartData}
+                            options={{
+                                maintainAspectRatio: false,
+                                animation: false
+                            }}
+                        />
+                    </Grid>
                 </Grid>
             </Grid>
         </>
