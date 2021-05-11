@@ -47,7 +47,6 @@ function Question({ id, setId }) {
         if (id === 1) {
             axios.post('https://taylor-survey.herokuapp.com/userData', { age, country })
                 .then(res => {
-                    console.log(res.data)
                     setError(false)
                     setId(id + 1)
                 })
@@ -58,7 +57,6 @@ function Question({ id, setId }) {
                 question: id, favourite, worst, underrated, friday, sunday
             })
                 .then(res => {
-                    console.log(res.data)
                     setFavourite('')
                     setWorst('')
                     setUnderrated('')
@@ -74,7 +72,6 @@ function Question({ id, setId }) {
                 question: id, favourite, worst, underrated, friday, sunday
             })
                 .then(res => {
-                    console.log(res.data)
                     setFavourite('')
                     setWorst('')
                     setUnderrated('')
@@ -96,7 +93,6 @@ function Question({ id, setId }) {
                     Please answer every question
                 </Alert>
                 : <> </>}
-
             {id === 1 ?
                 <>
                     <InputLabel htmlFor='age' className={classes.label}>Select your age</InputLabel>
@@ -114,142 +110,37 @@ function Question({ id, setId }) {
                         })}
                     </Select>
                 </>
-                : id === 2 ?
-                    <QuestionsSet
-                        album='Fearless song'
-                        songArray={fearless}
-                        favourite={favourite}
-                        setFavourite={setFavourite}
-                        worst={worst}
-                        setWorst={setWorst}
-                        underrated={underrated}
-                        setUnderrated={setUnderrated}
-                        friday={friday}
-                        setFriday={setFriday}
-                        sunday={sunday}
-                        setSunday={setSunday}
-                    />
-                    : id === 3 ?
-                        <QuestionsSet
-                            album='Speak Now song'
-                            songArray={speakNow}
-                            favourite={favourite}
-                            setFavourite={setFavourite}
-                            worst={worst}
-                            setWorst={setWorst}
-                            underrated={underrated}
-                            setUnderrated={setUnderrated}
-                            friday={friday}
-                            setFriday={setFriday}
-                            sunday={sunday}
-                            setSunday={setSunday}
-                        />
-                        : id === 4 ?
-                            <QuestionsSet
-                                album='Red song'
-                                songArray={red}
-                                favourite={favourite}
-                                setFavourite={setFavourite}
-                                worst={worst}
-                                setWorst={setWorst}
-                                underrated={underrated}
-                                setUnderrated={setUnderrated}
-                                friday={friday}
-                                setFriday={setFriday}
-                                sunday={sunday}
-                                setSunday={setSunday}
-                            />
-                            : id === 5 ?
-                                <QuestionsSet
-                                    album='1989 song'
-                                    songArray={nineteenEightyNine}
-                                    favourite={favourite}
-                                    setFavourite={setFavourite}
-                                    worst={worst}
-                                    setWorst={setWorst}
-                                    underrated={underrated}
-                                    setUnderrated={setUnderrated}
-                                    friday={friday}
-                                    setFriday={setFriday}
-                                    sunday={sunday}
-                                    setSunday={setSunday}
-                                />
-                                : id === 6 ?
-                                    <QuestionsSet
-                                        album='Reputation song'
-                                        songArray={reputation}
-                                        favourite={favourite}
-                                        setFavourite={setFavourite}
-                                        worst={worst}
-                                        setWorst={setWorst}
-                                        underrated={underrated}
-                                        setUnderrated={setUnderrated}
-                                        friday={friday}
-                                        setFriday={setFriday}
-                                        sunday={sunday}
-                                        setSunday={setSunday}
-                                    />
-                                    : id === 7 ?
-                                        <QuestionsSet
-                                            album='Lover song'
-                                            songArray={lover}
-                                            favourite={favourite}
-                                            setFavourite={setFavourite}
-                                            worst={worst}
-                                            setWorst={setWorst}
-                                            underrated={underrated}
-                                            setUnderrated={setUnderrated}
-                                            friday={friday}
-                                            setFriday={setFriday}
-                                            sunday={sunday}
-                                            setSunday={setSunday}
-                                        />
-                                        : id === 8 ?
-                                            <QuestionsSet
-                                                album='Folklore song'
-                                                songArray={folklore}
-                                                favourite={favourite}
-                                                setFavourite={setFavourite}
-                                                worst={worst}
-                                                setWorst={setWorst}
-                                                underrated={underrated}
-                                                setUnderrated={setUnderrated}
-                                                friday={friday}
-                                                setFriday={setFriday}
-                                                sunday={sunday}
-                                                setSunday={setSunday}
-                                            />
-                                            : id === 9 ?
-                                                <QuestionsSet
-                                                    album='Evermore song'
-                                                    songArray={evermore}
-                                                    favourite={favourite}
-                                                    setFavourite={setFavourite}
-                                                    worst={worst}
-                                                    setWorst={setWorst}
-                                                    underrated={underrated}
-                                                    setUnderrated={setUnderrated}
-                                                    friday={friday}
-                                                    setFriday={setFriday}
-                                                    sunday={sunday}
-                                                    setSunday={setSunday}
-                                                />
-                                                : id === 10 ?
-                                                    <QuestionsSet
-                                                        album="Taylor's album"
-                                                        songArray={albums}
-                                                        favourite={favourite}
-                                                        setFavourite={setFavourite}
-                                                        worst={worst}
-                                                        setWorst={setWorst}
-                                                        underrated={underrated}
-                                                        setUnderrated={setUnderrated}
-                                                        friday={friday}
-                                                        setFriday={setFriday}
-                                                        sunday={sunday}
-                                                        setSunday={setSunday}
-                                                    />
-                                                    : <></>
+                :
+                <QuestionsSet
+                    album={id === 2 ? 'Fearless song' :
+                        id === 3 ? 'Speak Now song' :
+                            id === 4 ? 'Red song' :
+                                id === 5 ? '1989 song' :
+                                    id === 6 ? 'Reputation song' :
+                                        id === 7 ? 'Lover song' :
+                                            id === 8 ? 'Folklore song' :
+                                                id === 9 ? 'Evermore song' :
+                                                    id === 10 ? "Taylor's album" : <></>}
+                    songArray={id === 2 ? fearless :
+                        id === 3 ? speakNow :
+                            id === 4 ? red :
+                                id === 5 ? nineteenEightyNine :
+                                    id === 6 ? reputation :
+                                        id === 7 ? lover :
+                                            id === 8 ? folklore :
+                                                id === 9 ? evermore :
+                                                    id === 10 ? albums : <></>}
+                    favourite={favourite}
+                    setFavourite={setFavourite}
+                    worst={worst}
+                    setWorst={setWorst}
+                    underrated={underrated}
+                    setUnderrated={setUnderrated}
+                    friday={friday}
+                    setFriday={setFriday}
+                    sunday={sunday}
+                    setSunday={setSunday}
+                />
             }
             <Button type='button' onClick={handleSubmit} className={classes.button}>Send answer</Button>
         </FormGroup>
