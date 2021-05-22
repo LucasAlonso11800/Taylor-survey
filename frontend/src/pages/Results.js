@@ -8,6 +8,7 @@ import { fearless, speakNow, red, nineteenEightyNine, reputation, lover, folklor
 import Charts from '../components/Charts';
 import UserChart from '../components/UserChart';
 
+
 const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
@@ -23,6 +24,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Results() {
+    const [index, setIndex] = useState(0);
     const [userData, setUserData] = useState([]);
     const [fearlessData, setFearlessData] = useState([]);
     const [speakNowData, setSpeakNowData] = useState([]);
@@ -34,7 +36,19 @@ function Results() {
     const [evermoreData, setEvermoreData] = useState([]);
     const [albumData, setAlbumData] = useState([]);
 
+    const chartsArray = [
+        <Charts chartData={fearlessData} songList={fearless} title={'Fearless'} index={index} setIndex={setIndex} />,
+        <Charts chartData={speakNowData} songList={speakNow} title={'Speak Now'} index={index} setIndex={setIndex} />,
+        <Charts chartData={redData} songList={red} title={'Red'} index={index} setIndex={setIndex} />,
+        <Charts chartData={nineteen89Data} songList={nineteenEightyNine} title={'1989'} index={index} setIndex={setIndex} />,
+        <Charts chartData={reputationData} songList={reputation} title={'Reputation'} index={index} setIndex={setIndex} />,
+        <Charts chartData={loverData} songList={lover} title={'Lover'} index={index} setIndex={setIndex} />,
+        <Charts chartData={folkloreData} songList={folklore} title={'folklore'} index={index} setIndex={setIndex} />,
+        <Charts chartData={evermoreData} songList={evermore} title={'evermore'} index={index} setIndex={setIndex} />,
+        <Charts chartData={albumData} songList={albums} title={'Albums'} album={true} index={index} setIndex={setIndex} />
+    ];
 
+    // GETTING ALBUM DATA
     useEffect(() => {
         axios.get('https://taylor-survey.herokuapp.com/answer')
             .then(res => {
@@ -85,6 +99,7 @@ function Results() {
             .catch(err => console.log(err))
     }, []);
 
+    // GETTING USER DATA
     useEffect(() => {
         axios.get('https://taylor-survey.herokuapp.com/userData')
             .then(res => setUserData(res.data))
@@ -92,18 +107,6 @@ function Results() {
     }, []);
 
     const classes = useStyles();
-    const [index, setIndex] = useState(0);
-    const chartsArray = [
-        <Charts chartData={fearlessData} songList={fearless} title={'Fearless'} index={index} setIndex={setIndex} />,
-        <Charts chartData={speakNowData} songList={speakNow} title={'Speak Now'} index={index} setIndex={setIndex} />,
-        <Charts chartData={redData} songList={red} title={'Red'} index={index} setIndex={setIndex} />,
-        <Charts chartData={nineteen89Data} songList={nineteenEightyNine} title={'1989'} index={index} setIndex={setIndex} />,
-        <Charts chartData={reputationData} songList={reputation} title={'Reputation'} index={index} setIndex={setIndex} />,
-        <Charts chartData={loverData} songList={lover} title={'Lover'} index={index} setIndex={setIndex} />,
-        <Charts chartData={folkloreData} songList={folklore} title={'folklore'} index={index} setIndex={setIndex} />,
-        <Charts chartData={evermoreData} songList={evermore} title={'evermore'} index={index} setIndex={setIndex} />,
-        <Charts chartData={albumData} songList={albums} title={'Albums'} album={true} index={index} setIndex={setIndex} />
-    ];
 
     return (
         <div className={classes.root}>
