@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { Doughnut } from 'react-chartjs-2';
 import { makeStyles } from '@material-ui/core/styles';
+import { generateOptions, generateDatasets } from './Functions';
 
 function Charts({ chartData, songList, title, album }) {
     const useStyles = makeStyles((theme) => ({
@@ -46,59 +47,8 @@ function Charts({ chartData, songList, title, album }) {
             }
         })
     };
-    let favouriteChartData = {};
-    let worstChartData = {};
-    let underratedChartData = {};
-    let fridayChartData = {};
-    let sundayChartData = {};
-
-    function generateDatasets(arr, str){
-        return (
-            {
-                labels: songList,
-                datasets: [
-                    {
-                        label: `Most voted ${str} songs`,
-                        data: arr,
-                        borderColor: '#69b2db'
-                    }
-                ]
-            }
-        )
-    }
-
-    (function createCharts() {
-        favouriteChartData = generateDatasets(favourites, 'favourite')
-        worstChartData = generateDatasets(worst, 'worst');
-        underratedChartData = generateDatasets(underrated, 'underrated');
-        fridayChartData = generateDatasets(friday, 'friday');
-        sundayChartData = generateDatasets(sunday, 'sunday');
-    })();
 
     const classes = useStyles();
-
-    function generateOptions(str){
-        return (
-            {
-                animation: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: album ? `${str} albums` : `${str} songs`,
-                        position: 'top',
-                        align: 'center',
-                        color: '#9a0036',
-                        font: {
-                            size: '14px'
-                        }
-                    },
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        )
-    }
 
     return (
         <>
@@ -108,32 +58,32 @@ function Charts({ chartData, songList, title, album }) {
             <Grid container className={classes.gridContainer}>
                 <Grid item xs={6} sm={4} md={2}>
                     <Doughnut
-                        data={favouriteChartData}
-                        options={generateOptions('Favourite')}
+                        data={generateDatasets(songList, favourites, 'favourite')}
+                        options={generateOptions(album, 'Favourite')}
                     />
                 </Grid>
                 <Grid item xs={6} sm={4} md={2}>
                     <Doughnut
-                        data={worstChartData}
-                        options={generateOptions('Worst')}
+                        data={generateDatasets(songList, worst, 'worst')}
+                        options={generateOptions(album, 'Worst')}
                     />
                 </Grid>
                 <Grid item xs={6} sm={4} md={2}>
                     <Doughnut
-                        data={underratedChartData}
-                        options={generateOptions('Underrated')}
+                        data={generateDatasets(songList, underrated, 'underrated')}
+                        options={generateOptions(album, 'Underrated')}
                     />
                 </Grid>
                 <Grid item xs={6} sm={4} md={2}>
                     <Doughnut
-                        data={fridayChartData}
-                        options={generateOptions('Friday')}
+                        data={generateDatasets(songList, friday, 'friday')}
+                        options={generateOptions(album, 'Friday')}
                     />
                 </Grid>
                 <Grid item xs={6} sm={4} md={2}>
                     <Doughnut
-                        data={sundayChartData}
-                        options={generateOptions('Sunday')}
+                        data={generateDatasets(songList, sunday, 'sunday')}
+                        options={generateOptions(album, 'Sunday')}
                     />
                 </Grid>
             </Grid>
