@@ -1,29 +1,35 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Container } from '@material-ui/core';
 import { Doughnut } from 'react-chartjs-2';
 import { makeStyles } from '@material-ui/core/styles';
 import { generateOptions, generateDatasets } from './Functions';
+import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
 
-function Charts({ chartData, songList, title, album }) {
-    const useStyles = makeStyles((theme) => ({
-        title: {
-            textAlign: 'center',
-            fontSize: '1.375rem',
-            fontWeight: 'bold',
-            color: theme.palette.secondary.dark,
-            textDecoration: 'underline 2px #9a0036',
-            margin: '1em 0'
-        },
-        gridContainer: {
-            paddingBottom: '2em',
-            borderBottom: album ? '' : '2px solid #9a0036',
-            justifyContent: 'space-between',
-            [theme.breakpoints.down('sm')]: {
-                justifyContent: 'space-around',
-            }
+const useStyles = makeStyles((theme) => ({
+    titleContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '4em'
+    },
+    title: {
+        textAlign: 'center',
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
+        color: theme.palette.secondary.dark,
+        textDecoration: 'underline 2px #9a0036',
+        margin: '0 2em'
+    },
+    gridContainer: {
+        paddingBottom: '2em',
+        justifyContent: 'space-between',
+        [theme.breakpoints.down('sm')]: {
+            justifyContent: 'space-around',
         }
-    }));
+    }
+}));
 
+function Charts({ chartData, songList, title, album, index, setIndex }) {
     const favourites = new Array(songList.length).fill(0);
     const worst = new Array(songList.length).fill(0);
     const underrated = new Array(songList.length).fill(0);
@@ -52,9 +58,20 @@ function Charts({ chartData, songList, title, album }) {
 
     return (
         <>
-            <Typography className={classes.title}>
-                {title}
-            </Typography>
+            <Container className={classes.titleContainer}>
+                {index > 0 ?
+                    <FaChevronCircleLeft
+                        size={32}
+                        onClick={() => setIndex(index - 1)}
+                    />
+                    : <></>}
+                <Typography className={classes.title}>{title}</Typography>
+                {index < 8 ?
+                    <FaChevronCircleRight
+                        size={32}
+                        onClick={() => setIndex(index + 1)} />
+                    : <></>}
+            </Container>
             <Grid container className={classes.gridContainer}>
                 <Grid item xs={6} sm={4} md={2}>
                     <Doughnut

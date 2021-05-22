@@ -87,27 +87,29 @@ function Results() {
 
     useEffect(() => {
         axios.get('https://taylor-survey.herokuapp.com/userData')
-            .then(res => {
-                setUserData(res.data)
-            })
+            .then(res => setUserData(res.data))
             .catch(err => console.log(err))
     }, []);
 
     const classes = useStyles();
+    const [index, setIndex] = useState(0);
+    const chartsArray = [
+        <Charts chartData={fearlessData} songList={fearless} title={'Fearless'} index={index} setIndex={setIndex} />,
+        <Charts chartData={speakNowData} songList={speakNow} title={'Speak Now'} index={index} setIndex={setIndex} />,
+        <Charts chartData={redData} songList={red} title={'Red'} index={index} setIndex={setIndex} />,
+        <Charts chartData={nineteen89Data} songList={nineteenEightyNine} title={'1989'} index={index} setIndex={setIndex} />,
+        <Charts chartData={reputationData} songList={reputation} title={'Reputation'} index={index} setIndex={setIndex} />,
+        <Charts chartData={loverData} songList={lover} title={'Lover'} index={index} setIndex={setIndex} />,
+        <Charts chartData={folkloreData} songList={folklore} title={'folklore'} index={index} setIndex={setIndex} />,
+        <Charts chartData={evermoreData} songList={evermore} title={'evermore'} index={index} setIndex={setIndex} />,
+        <Charts chartData={albumData} songList={albums} title={'Albums'} album={true} index={index} setIndex={setIndex} />
+    ];
 
     return (
         <div className={classes.root}>
             <Container className={classes.container}>
                 <UserChart chartData={userData} />
-                <Charts chartData={fearlessData} songList={fearless} title={'Fearless'} />
-                <Charts chartData={speakNowData} songList={speakNow} title={'Speak Now'}/>
-                <Charts chartData={redData} songList={red} title={'Red'}/>
-                <Charts chartData={nineteen89Data} songList={nineteenEightyNine} title={'1989'}/>
-                <Charts chartData={reputationData} songList={reputation} title={'Reputation'}/>
-                <Charts chartData={loverData} songList={lover} title={'Lover'}/>
-                <Charts chartData={folkloreData} songList={folklore} title={'folklore'}/>
-                <Charts chartData={evermoreData} songList={evermore} title={'evermore'}/>
-                <Charts chartData={albumData} songList={albums} title={'Albums'} album={true}/>
+                {chartsArray[index]}
             </Container>
         </div>
     )
