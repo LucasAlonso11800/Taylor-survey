@@ -10,16 +10,3 @@
 body{
   min-width: 400px;
 }
-
-.slide-in{
-    animation: slideIn 500ms forwards ease-in-out
-};
-
-@keyframes slideIn {
-    0%{
-        transform: translateX(-10000px);
-    }
-    100%{
-        transform: translateX(0)
-    }
-};
