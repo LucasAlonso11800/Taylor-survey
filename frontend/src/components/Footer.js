@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -22,27 +21,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Footer() {
-    const [quote, setQuote] = useState('');
-    const [author, setAuthor] = useState('');
-
-    useEffect(() => {
-        axios.get('https://api.taylor.rest/')
-            .then(res => {
-                setQuote(res.data.quote)
-                setAuthor(res.data.author)
-            })
-            .catch(err => console.log(err))
-    }, []);
-
     const classes = useStyles();
 
     return (
         <Paper className={classes.root}>
             <Typography className={classes.quote}>
-                '{quote}'
+                'I see sparks fly whenever you smile'
             </Typography>
             <Typography className={classes.author}>
-                {author}
+                Taylor Swift
             </Typography>
         </Paper>
     )
