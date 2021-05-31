@@ -43,7 +43,7 @@ export async function getData(endpoint) {
 
 export async function answerQuestion(endpoint, postData) {
     try {
-        const result = await axios.post(`http://localhost:5000/${endpoint}`, postData )
+        const result = await axios.post(`https://taylor-survey.herokuapp.com/${endpoint}`, postData )
         return result.data
     }
     catch (err) {
