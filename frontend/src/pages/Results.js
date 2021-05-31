@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import background from '../assets/background.jpg';
 import { fearless, speakNow, red, nineteenEightyNine, reputation, lover, folklore, evermore, albums } from '../songs';
+import { getData } from '../components/Functions';
 
 import Charts from '../components/Charts';
 import UserChart from '../components/UserChart';
@@ -50,60 +50,60 @@ function Results() {
 
     // GETTING ALBUM DATA
     useEffect(() => {
-        axios.get('https://taylor-survey.herokuapp.com/answer')
-            .then(res => {
-                const newFearlessData = [];
-                const newSpeakNowData = [];
-                const newRedData = [];
-                const newNineteen89Data = [];
-                const newReputationData = [];
-                const newLoverData = [];
-                const newFolkloreData = [];
-                const newEvermoreData = [];
-                const newAlbumData = [];
+        (async function axiosAnswersData() {
+            const newFearlessData = [];
+            const newSpeakNowData = [];
+            const newRedData = [];
+            const newNineteen89Data = [];
+            const newReputationData = [];
+            const newLoverData = [];
+            const newFolkloreData = [];
+            const newEvermoreData = [];
+            const newAlbumData = [];
 
-                res.data.forEach(answer => {
-                    switch (answer.question) {
-                        case '2': newFearlessData.push(answer)
-                            break
-                        case '3': newSpeakNowData.push(answer)
-                            break
-                        case '4': newRedData.push(answer)
-                            break
-                        case '5': newNineteen89Data.push(answer)
-                            break
-                        case '6': newReputationData.push(answer)
-                            break
-                        case '7': newLoverData.push(answer)
-                            break
-                        case '8': newFolkloreData.push(answer)
-                            break
-                        case '9': newEvermoreData.push(answer)
-                            break
-                        case '10': newAlbumData.push(answer)
-                            break
-                        default: return
-                    }
-                });
+            const data = await getData('answer');
+            data.forEach(answer => {
+                switch (answer.question) {
+                    case '2': newFearlessData.push(answer)
+                        break
+                    case '3': newSpeakNowData.push(answer)
+                        break
+                    case '4': newRedData.push(answer)
+                        break
+                    case '5': newNineteen89Data.push(answer)
+                        break
+                    case '6': newReputationData.push(answer)
+                        break
+                    case '7': newLoverData.push(answer)
+                        break
+                    case '8': newFolkloreData.push(answer)
+                        break
+                    case '9': newEvermoreData.push(answer)
+                        break
+                    case '10': newAlbumData.push(answer)
+                        break
+                    default: return
+                };
+            });
 
-                setFearlessData(newFearlessData)
-                setSpeakNowData(newSpeakNowData)
-                setRedData(newRedData)
-                setNineteen89Data(newNineteen89Data)
-                setReputationData(newReputationData)
-                setLoverData(newLoverData)
-                setFolkloreData(newFolkloreData)
-                setEvermoreData(newEvermoreData)
-                setAlbumData(newAlbumData)
-            })
-            .catch(err => console.log(err))
+            setFearlessData(newFearlessData)
+            setSpeakNowData(newSpeakNowData)
+            setRedData(newRedData)
+            setNineteen89Data(newNineteen89Data)
+            setReputationData(newReputationData)
+            setLoverData(newLoverData)
+            setFolkloreData(newFolkloreData)
+            setEvermoreData(newEvermoreData)
+            setAlbumData(newAlbumData)
+        })();
     }, []);
 
     // GETTING USER DATA
     useEffect(() => {
-        axios.get('https://taylor-survey.herokuapp.com/userData')
-            .then(res => setUserData(res.data))
-            .catch(err => console.log(err))
+        (async function axiosUserData() {
+            const data = await getData('userData');
+            setUserData(data);
+        })();
     }, []);
 
     const classes = useStyles();

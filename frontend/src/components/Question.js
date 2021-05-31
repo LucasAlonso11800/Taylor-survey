@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Button, FormGroup, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import { answerQuestion } from './Functions';
 
 import { fearless, speakNow, red, nineteenEightyNine, reputation, lover, folklore, evermore, albums, countries } from '../songs';
 import QuestionsSet from './QuestionsSet';
@@ -43,45 +43,49 @@ function Question({ id, setId }) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        const isFirstQuestion = id === 1;
+        const isMiddleQuestion = id > 1 && id < 10;
+        const isLastQuestion = id === 10;
 
-        if (id === 1) {
-            axios.post('https://taylor-survey.herokuapp.com/userData', { age, country })
-                .then(res => {
-                    setError(false)
-                    setId(id + 1)
-                })
-                .catch(err => { if (err) setError(true) })
-        }
-        else if (id > 1 && id < 10) {
-            axios.post('https://taylor-survey.herokuapp.com/answer', {
-                question: id, favourite, worst, underrated, friday, sunday
-            })
-                .then(res => {
-                    setFavourite('')
-                    setWorst('')
-                    setUnderrated('')
-                    setFriday('')
-                    setSunday('')
-                    setError(false)
-                    setId(id + 1)
-                })
-                .catch(err => { if (err) setError(true) })
-        }
-        else {
-            axios.post('https://taylor-survey.herokuapp.com/answer', {
-                question: id, favourite, worst, underrated, friday, sunday
-            })
-                .then(res => {
-                    setFavourite('')
-                    setWorst('')
-                    setUnderrated('')
-                    setFriday('')
-                    setSunday('')
-                    setError(false)
-                    window.location = '/results'
-                })
-                .catch(err => { if (err) setError(true) })
-        }
+        if (isFirstQuestion) {
+            (async function axiosPostAnswer() {
+                const data = await answerQuestion('userData', { age, country });
+                if (data.isAxiosError) return setError(true);
+
+                setError(false);
+                setId(id + 1)
+            })();
+        };
+
+        if (isMiddleQuestion) {
+            (async function axiosPostAnswer() {
+                const data = await answerQuestion('answer', { question: id, favourite, worst, underrated, friday, sunday });
+                if (data.isAxiosError) return setError(true);
+
+                setFavourite('')
+                setWorst('')
+                setUnderrated('')
+                setFriday('')
+                setSunday('')
+                setError(false)
+                setId(id + 1)
+            })();
+        };
+
+        if (isLastQuestion) {
+            (async function axiosPostAnswer() {
+                const data = await answerQuestion('answer', { question: id, favourite, worst, underrated, friday, sunday });
+                if (data.isAxiosError) return setError(true);
+
+                setFavourite('')
+                setWorst('')
+                setUnderrated('')
+                setFriday('')
+                setSunday('')
+                setError(false)
+                window.location = '/results'
+            })();
+        };
     };
 
     return (
